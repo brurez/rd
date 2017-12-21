@@ -1,0 +1,45 @@
+{
+  "name": "react-node-project",
+  "version": "0.1.0",
+  "description": "React NodeJS boilerplate",
+  "author": "Bruno de Rezende <brurez@hotmail.com>",
+  "license": "MIT",
+  "main": "./bin/www",
+  "private": true,
+  "engines": {
+    "node": "8.9.3",
+    "npm": "5.5.1"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/client/"
+    ],
+    "mapCoverage": true,
+    "collectCoverageFrom": [
+      "app.js"
+    ]
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev:server": "nodemon --inspect=5858 ./bin/www --config ./nodemon.json",
+    "dev:client": "npm run start --prefix client",
+    "dev": "npm-run-all --parallel dev:*",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "lint": "eslint ./**/**.js",
+    "test": "jest tests",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "npm-run-all": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.13.1",
+    "eslint-plugin-jest": "^21.5.0",
+    "nodemon": "^1.13.3",
+    "supertest": "^3.0.0"
+  }
+}

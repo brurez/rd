@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.App-content {
+  flex: 1;
+}
+
+.App-top-title {
+  font-size: 16px;
+}

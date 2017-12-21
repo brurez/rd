@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["env", {
+      "browsers": ["last 2 versions", "safari >= 7"]
+    }],
+    "stage-2",
+    "react"
+  ],
+
+  "plugins": [
+    "react-hot-loader/babel"
+  ]
+}
