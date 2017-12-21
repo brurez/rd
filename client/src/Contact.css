@@ -1,0 +1,9 @@
+.Contact-field {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-radius: 0.28571429rem;
+    padding: 0.67857143em 1em;
+    line-height: 1.21428571em;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+}
