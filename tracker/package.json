@@ -4,15 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/tests/setupFile.js"
+    ]
+  },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "jest": "^22.0.3",
     "js-cookie": "^2.2.0",
+    "universal-cookie": "^2.1.2",
     "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "mock-cookie": "^0.3.2"
   }
 }

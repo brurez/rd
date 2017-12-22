@@ -20,20 +20,6 @@ function create(num = 10) {
       body: {
         name: faker.name.findName(),
         email: faker.internet.email(),
-        visits: [
-          {
-            url: 'testsite.com',
-            visitedAt: faker.date.past(),
-          },
-          {
-            url: 'testsite.com/contato',
-            visitedAt: faker.date.past(),
-          },
-          {
-            url: 'testsite.com/preco',
-            visitedAt: faker.date.past(),
-          },
-        ],
       },
     };
     return apiPost(req, Contact);
@@ -41,7 +27,14 @@ function create(num = 10) {
 
   Promise.all(contacts).then(contacts => {
     console.log('Faker insert finished');
+    return contacts;
   });
 }
 
-create(10);
+module.exports = {
+  create
+};
+
+require('make-runnable');
+
+//create(10);

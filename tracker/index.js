@@ -1,11 +1,13 @@
-import * as Cookies from "js-cookie";
+import rdTracker from './rd-tracker';
 
-console.log(324234234);
+const tracker = new rdTracker();
 
-const tracker = Cookies.get('tracker');
+tracker.setUser('Bruno de Rezende', 'brurez@hotmail.com');
 
-const visits = tracker.visits ? tracker.visits : [];
+debugger;
 
-visits.push(window.location.href);
+tracker.addPage();
 
-Cookies.set(tracker, { visits });
+//tracker._logCookie();
+
+tracker.sendAndCleanHistory();

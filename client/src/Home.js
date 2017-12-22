@@ -3,22 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-const data = [
-  {
-    _id: 'ad767sdsd',
-    name: 'Bruno de Rezende',
-    email: 'brurez@hotmail.com',
-    visits: [1, 2, 4, 5],
-    createdAt: '10-10-2017',
-  },
-  {
-    _id: 'ad7676dsd',
-    name: 'Babi Reno',
-    email: 'babi@hotmail.com',
-    visits: [1],
-    createdAt: '10-11-2017',
-  },
-];
+import Visits from './Visits';
 
 class Home extends Component {
   state = { data: [] };
@@ -43,7 +28,9 @@ class Home extends Component {
         <div className="card" key={contact._id}>
           <div className="content">
             <div className="header">{name}</div>
-            <div className="meta">Criado em: {moment(createdAt).format('LLL')}</div>
+            <div className="meta">
+              Criado em: {moment(createdAt).format('LLL')}
+            </div>
             <div className="description">
               <strong>Email:</strong> {email} <br />
               <strong>Número de visitas: </strong> {visits.length}
@@ -66,8 +53,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h2>Lista de Contatos</h2>
-        <div className="ui two cards">{this.renderContacts()}</div>
+        <div className="ui segment">
+          <h2>Últimas 10 Visitas</h2>
+          <Visits />
+        </div>
+        <div className="ui segment">
+          <h2>Lista de Contatos</h2>
+          <div className="ui two cards">{this.renderContacts()}</div>
+        </div>
       </div>
     );
   }
