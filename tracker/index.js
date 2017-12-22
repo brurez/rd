@@ -1,13 +1,23 @@
 import rdTracker from './rd-tracker';
 
-const tracker = new rdTracker();
+const init = function(config) {
+  const tracker = new rdTracker(config);
 
-tracker.setUser('Bruno de Rezende', 'brurez@hotmail.com');
+  tracker.addPage();
+  tracker.sendAndCleanHistory();
 
-debugger;
+  if (document.getElementById(tracker.formId))
+    document
+      .getElementById(tracker.formId)
+      .addEventListener('submit', tracker.submit.bind(tracker));
+};
 
-tracker.addPage();
+const setUser = function(name, email) {
+  const tracker = new rdTracker();
+  tracker.setUser(name, email);
+};
 
-//tracker._logCookie();
-
-tracker.sendAndCleanHistory();
+export {
+  init,
+  setUser,
+};

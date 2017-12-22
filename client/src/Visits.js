@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 
+import LoadingMsg from './LoadingMsg';
+
 class Visits extends Component {
   state = { data: [], isFetching: true };
 
@@ -24,7 +26,7 @@ class Visits extends Component {
           <tr key={visit._id}>
             <td>{moment(visit.visitedAt).format('LLL')}</td>
             <td>{visit.url}</td>
-            <td>{visit._contact && visit._contact.email || 'Anonimo'}</td>
+            <td>{(visit._contact && visit._contact.email) || 'Anonimo'}</td>
           </tr>
         );
       });
@@ -32,17 +34,29 @@ class Visits extends Component {
       return (
         <table className="ui compact table">
           <thead>
-          <tr>
-            <th>Data da Visita</th>
-            <th>Endereço da Página</th>
-            <th>Contato</th>
-          </tr>
+            <tr>
+              <th>Data da Visita</th>
+              <th>Endereço da Página</th>
+              <th>Contato</th>
+            </tr>
           </thead>
           <tbody>{visits}</tbody>
         </table>
       );
-    }else{
-      return <div>Loading...</div>
+    } else if (isFetching) {
+      return <LoadingMsg />;
+    } else {
+      return (
+        <div className="ui icon message">
+          <i className="frown icon" />
+          <div className="content">
+            <div className="header">Nenhuma visita até agora</div>
+            <p>
+              Tenha um pouco de paciência, ainda vão querer visitar seu site.
+            </p>
+          </div>
+        </div>
+      );
     }
   }
 }

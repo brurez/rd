@@ -2,10 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Página de Contato</title>
+    <title>Fã Clube do Porquinho da Índia do Star Wars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
 </head>
 <body>
-    <h1>Se registre aqui</h1>
-    <script src="http://localhost:5000/public/tracker.js"></script>
+<div class="ui container">
+    <h1>Se Cadastre Aqui</h1>
+    <h2>Você deixará de ser um usuário anônimo</h2>
+    <form id="rd-form" class="ui form">
+        <div class="field">
+            <label for="name">Nome</label>
+            <input id="name" name="name" type="text">
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="text">
+        </div>
+        <button type="submit" class="ui red button">Registrar</button>
+    </form>
+</div>
+<script src="http://localhost:5000/public/tracker.js"></script>
+<script>rdTracker.init()</script>
 </body>
 </html>

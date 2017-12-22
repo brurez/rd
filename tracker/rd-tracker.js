@@ -9,6 +9,7 @@ const rdTracker = function(configObj = {}) {
   if (instance) return instance;
   this.tag = configObj.tag ? configObj.tag : 'rd-tracker';
   this.server = configObj.server ? configObj.server : 'http://localhost:5000';
+  this.formId = configObj.formId ? configObj.formId : 'rd-form';
   if (!cookies.get(this.tag)) {
     cookies.set(this.tag, {
       uuid: this._guid(),
@@ -78,6 +79,12 @@ rdTracker.prototype.sendAndCleanHistory = function() {
       cookies.set(this.tag, cookie);
     }
   });
+};
+
+rdTracker.prototype.submit = function (e) {
+  const name = e.target.name.value;
+  const email = e.target.email.value;
+  this.setUser(name, email);
 };
 
 export default rdTracker;

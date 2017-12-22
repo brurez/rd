@@ -9,7 +9,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '..', 'public'),
     publicPath: '/',
-    filename: './tracker.js'
+    filename: './tracker.js',
+    libraryTarget: 'var',
+    library: 'rdTracker'
   },
   module: {
     loaders: [

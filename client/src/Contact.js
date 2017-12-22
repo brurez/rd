@@ -3,26 +3,28 @@ import axios from 'axios';
 import moment from 'moment';
 
 import './Contact.css';
+import LoadingMsg from './LoadingMsg';
 
 class Contact extends Component {
-  state = { data: {} };
+  state = { data: {}, isFetching: true };
 
   componentDidMount() {
     axios
       .get(`/api/contacts/${this.props.match.params.id}`)
       .then(res => {
         //debugger;
-        const { data, count } = res.data;
-        this.setState({ data: data[0] });
+        this.setState({ data: res.data, isFetching: false });
       })
       .catch(err => console.log(err));
   }
 
   renderVisits() {
-    if (this.state.data.visits && this.state.data.visits.length) {
+    if (!this.state.isFetching) {
+      //debugger;
       const visits = this.state.data.visits.map(visit => {
+        //debugger;
         return (
-          <tr>
+          <tr key={visit._id}>
             <td>{moment(visit.visitedAt).format('LLL')}</td>
             <td>{visit.url}</td>
           </tr>
@@ -30,7 +32,7 @@ class Contact extends Component {
       });
 
       return (
-        <table className="ui celled table">
+        <table className="ui compact celled table">
           <thead>
             <tr>
               <th>Data da Visita</th>
@@ -40,6 +42,8 @@ class Contact extends Component {
           <tbody>{visits}</tbody>
         </table>
       );
+    } else {
+      return <LoadingMsg />;
     }
   }
 
@@ -48,7 +52,7 @@ class Contact extends Component {
 
     return (
       <div>
-        <h2>Detalhes do Contato</h2>
+        <h2><i className="user icon" /> Detalhes do Contato</h2>
         <div className="ui vertical segment">
           <div className="ui form">
             <div className="two fields">

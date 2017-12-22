@@ -1,69 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
+import React from 'react';
 
 import Visits from './Visits';
+import ContactList from './ContactList';
 
-class Home extends Component {
-  state = { data: [] };
 
-  componentDidMount() {
-    axios
-      .get('/api/contacts')
-      .then(res => {
-        //debugger;
-        const { data, count } = res.data;
-        this.setState({ data });
-      })
-      .catch(err => console.log(err));
-  }
+const Home = () => {
 
-  renderContacts() {
-    const data = this.state.data;
-    return data.map(contact => {
-      const { name, email, visits, createdAt } = contact;
-      //debugger;
-      return (
-        <div className="card" key={contact._id}>
-          <div className="content">
-            <div className="header">{name}</div>
-            <div className="meta">
-              Criado em: {moment(createdAt).format('LLL')}
-            </div>
-            <div className="description">
-              <strong>Email:</strong> {email} <br />
-              <strong>Número de visitas: </strong> {visits.length}
-            </div>
-          </div>
-          <div className="extra content">
-            <Link
-              as="button"
-              to={`/contact/${contact._id}`}
-              className="ui small icon button"
-            >
-              Ver visitas <i className="arrow right icon" />
-            </Link>
-          </div>
-        </div>
-      );
-    });
-  }
 
-  render() {
     return (
       <div>
         <div className="ui segment">
-          <h2>Últimas 10 Visitas</h2>
+          <h2><i className="desktop icon" /> Últimas 10 Visitas</h2>
           <Visits />
         </div>
         <div className="ui segment">
-          <h2>Lista de Contatos</h2>
-          <div className="ui two cards">{this.renderContacts()}</div>
+          <h2><i className="users icon" /> Lista de Contatos</h2>
+          <ContactList/>
         </div>
       </div>
     );
-  }
-}
+
+};
 
 export default Home;

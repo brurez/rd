@@ -9,8 +9,8 @@ const TopMenu = () => {
         <Menu.Item as={NavLink} exact to="/">
           <h1 className="App-top-title"><i className="line chart icon"/> Desafio RD</h1>
         </Menu.Item>
-        <Menu.Item as={NavLink} to="/posts">
-          Posts
+        <Menu.Item as={NavLink} to="/howto">
+          <i className="icon info circle" /> Como Usar
         </Menu.Item>
       </div>
     </Menu>
