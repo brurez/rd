@@ -1,3 +1,7 @@
 body {
   background-color: #f2f3f4 !important;
 }
+
+p {
+  font-size: 1.1em;
+}
