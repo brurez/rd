@@ -9,6 +9,13 @@ class ContactList extends Component {
   state = { data: [], isFetching: true };
 
   componentDidMount() {
+    this.fetchApi();
+    this.interval = setInterval(() => {
+      this.fetchApi();
+    }, 6000);
+  }
+
+  fetchApi() {
     axios
       .get('/api/contacts')
       .then(res => {
@@ -16,7 +23,14 @@ class ContactList extends Component {
         const { data, count } = res.data;
         this.setState({ data, isFetching: false });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        this.fetchApi();
+      });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   renderContacts() {

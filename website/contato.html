@@ -9,17 +9,28 @@
 <div class="ui container">
     <h1>Se Cadastre Aqui</h1>
     <h2>Você deixará de ser um usuário anônimo</h2>
+    <h3>Depois que você inserir os dados e apertar Registrar você não irá mais aparecer como anônimo no aplicativo</h3>
     <form id="rd-form" class="ui form">
         <div class="field">
             <label for="name">Nome</label>
-            <input id="name" name="name" type="text">
+            <input id="name" name="name" type="text" required>
         </div>
         <div class="field">
             <label for="email">Email</label>
-            <input id="email" name="email" type="text">
+            <input id="email" name="email" type="text" required>
         </div>
         <button type="submit" class="ui red button">Registrar</button>
     </form>
+    <br/>
+    <div class="ui icon message">
+        <i class="info circle icon"></i>
+        <div class="content">
+            <div class="header">
+                Esse site é completamente estático
+            </div>
+            <p>Todas as funcionalidades são inseridas automaticamente pelo script rastreador.</p>
+        </div>
+    </div>
 </div>
 <script src="http://localhost:5000/public/tracker.js"></script>
 <script>rdTracker.init()</script>

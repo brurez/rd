@@ -72,6 +72,8 @@ rdTracker.prototype.addPage = function() {
     url: window.location.host + window.location.pathname,
   });
 
+  console.log(cookie);
+
   cookies.set(this.tag, cookie);
 };
 
@@ -101,7 +103,7 @@ rdTracker.prototype.sendAndCleanHistory = function() {
         this.cleanHistory();
       }
       resolve(res.data);
-      
+
     }).catch( err => reject(err));
   });
 

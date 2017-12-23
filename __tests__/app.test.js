@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('Test server', () => {
+describe('Test static server', () => {
   test('It should return the index.html file', done => {
     request(app)
       .get('/')
@@ -18,12 +18,5 @@ describe('Test server', () => {
         expect(res.statusCode).toBe(200);
         done();
       });
-  });
-  test('It should work api/test path', done => {
-    request(app).get('/api/test').then( res => {
-      expect(res.statusCode).toBe(200);
-      expect(res.text).toBe('test ok');
-      done();
-    });
   });
 });

@@ -12,11 +12,8 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/client/"
-    ],
-    "mapCoverage": true,
-    "collectCoverageFrom": [
-      "app.js"
+      "client",
+      "tracker"
     ]
   },
   "scripts": {
@@ -26,10 +23,9 @@
     "dev:tracker": "npm run watch --prefix tracker",
     "dev": "npm-run-all --parallel dev:*",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    "lint": "eslint ./**/**.js",
-    "test": "jest tests",
-    "test:watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "populate": "node ./factory/populate.js it",
+    "drop": "node ./factory/drop.js it",
+    "test": "jest --watch"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

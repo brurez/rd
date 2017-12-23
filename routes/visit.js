@@ -16,7 +16,9 @@ const routes = app => {
   app.get('/api/visits', (req, res) => {
     apiGet(req, Visit)
       .then(visits => {
-        Visit.populate(visits.data, '_contact').then( data => res.send({data, count: visits.count }));
+        Visit.populate(visits.data, '_contact').then(data =>
+          res.send({ data, count: visits.count }),
+        );
       })
       .catch(err => res.status(500).send(err));
   });
@@ -29,42 +31,16 @@ const routes = app => {
       })
       .catch(err => res.status(500).send(err));
   });
-
 };
-
-function visitGet(req, id){
-  return new Promise((resolve, reject) => {
-    const { sort, limit, skip } = req.query;
-
-    const findObj = id ? { _id: id } : {};
-
-    const countP = Visit.count(findObj).exec();
-    const findP = Visit.find(findObj)
-      .sort(sort)
-      .limit(Number(limit))
-      .skip(skip ? Number(skip) : 0)
-      .exec();
-
-    Promise.all([countP, findP])
-      .then(([count, data]) => {
-        resolve({ data, count });
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      });
-  });
-}
 
 function visitInsert(body) {
   return new Promise((resolve, reject) => {
     const { uuid, name, email, history } = body;
 
-    if(email){
+    if (email) {
       // Usuário com cadastro ou com requisitos para cadastrar-se
       // Insira nova visita relacionanda com contato
       Contact.findOne({ email }, (err, contact) => {
-
         if (!contact) {
           // usuario não casdastrado nos contatos, adicionando contato e depois visita
           const newContact = new Contact({
@@ -78,8 +54,8 @@ function visitInsert(body) {
               return item;
             });
 
-            Visit.insertMany(allVisits, ( err, res) => {
-              if(err){
+            Visit.insertMany(allVisits, (err, res) => {
+              if (err) {
                 reject('visit insert with new contact failed', err);
               }
               resolve('ok');
@@ -87,9 +63,15 @@ function visitInsert(body) {
 
             // Procura todas as visitas anonimas com o mesmo uuid e adiciona contato
 
-            Visit.updateMany({ uuid, _contact: {$exists: false} }, { $set: { _contact: contact.id } })
-          })
-
+            Visit.updateMany(
+              { uuid, _contact: { $exists: false } },
+              { $set: { _contact: contact.id } },
+              (err, res) => {
+                //console.log(err);
+                //console.log(res);
+              },
+            );
+          });
         } else {
           // usuario casdastrado nos contatos, adicionando visita
           const allVisits = history.map(item => {
@@ -97,17 +79,15 @@ function visitInsert(body) {
             item._contact = contact.id;
             return item;
           });
-          Visit.insertMany(allVisits, ( err, res) => {
-            if(err){
+          Visit.insertMany(allVisits, (err, res) => {
+            if (err) {
               reject('visit insert with new contact failed', err);
             }
-            resolve('ok')
+            resolve('ok');
           });
         }
       });
-
-
-    }else{
+    } else {
       // Usuário anonimo, apenas insira a visita sem referência a contato
 
       const allVisits = history.map(item => {
@@ -115,17 +95,15 @@ function visitInsert(body) {
         return item;
       });
 
-      Visit.insertMany(allVisits, ( err, res) => {
-        if(err){
+      Visit.insertMany(allVisits, (err, res) => {
+        if (err) {
           //console.log(err);
           reject('visit insert failed', err);
         }
         resolve('ok');
       });
-
     }
-
   });
 }
 
-module.exports = { routes };
+module.exports = { routes, visitInsert };
