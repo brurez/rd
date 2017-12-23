@@ -20,7 +20,7 @@ const HowTo = () => {
         tag: 'rd-tracker',
         server: 'https://rdtracker.herokuapp.com/',
         formId: 'rd-form'
-    })</script>\`;
+    })</script>
   `;
   const code4 = `
     <script>rdTracker.setUser({ name: 'João da Silva Sauro', email: 'joao@sauro.com'})</script>`;

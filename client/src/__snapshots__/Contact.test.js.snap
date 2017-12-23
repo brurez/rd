@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component match the snapshot 1`] = `
+<div>
+  <h2>
+    <i
+      className="user icon"
+    />
+     Detalhes do Contato
+  </h2>
+  <div
+    className="ui vertical segment"
+  >
+    <div
+      className="ui form"
+    >
+      <div
+        className="two fields"
+      >
+        <div
+          className="field"
+        >
+          <label>
+            Nome
+          </label>
+          <div
+            className="Contact-field"
+          />
+        </div>
+        <div
+          className="field"
+        >
+          <label>
+            Email
+          </label>
+          <div
+            className="Contact-field"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui vertical segment"
+  >
+    <h3>
+      Visitas
+    </h3>
+    <div
+      className="ui icon message"
+    >
+      <i
+        className="notched circle loading icon"
+      />
+      <div
+        className="content"
+      >
+        <div
+          className="header"
+        >
+          Espere um segundo
+        </div>
+        <p>
+          Estamos baixando o conteúdo para você.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

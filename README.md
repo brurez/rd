@@ -1,18 +1,25 @@
-# React / NodeJS API Boilerplate
+# Code Challenge
 
 ## Deployment
 
 The project is configured to be deployed on Heroku.
+The web application and the api server can be accessed by the following link:
+[https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)
+
+The tracked client website can be accessed on:
+[http://rd.toplayalong.com/](http://rd.toplayalong.com/)
 
 ## Folder Structure
 
 The main folder holds the Express server that delivery the static
-content from `client` folder and also works as an API server if needed
-by the React application.
+content from the folders: 
+- `client`: The web application that displays the visited pages;
+- `tracker`: The javascript library to be inserted on the pages that
+will be tracked by the application;
+- `website`: A example website used for test during developement.
 
-The `client` folder holds the React application, the necessary tools
-to build it and a HMR development server.
-
+The main folder is also the API server that collects the data sent by
+the javascript library inserted on pages.
 
 This nested folder structure besides it's relative complexity
 is often the better solution. Some advantages:
@@ -27,25 +34,23 @@ by the server.
 ### From Main Folder
 
 - `npm start` - run the server to serve the client folder content, meant to be used in production
-- `npm run dev` - run the server in debug mode and the client using webpack-dev-server
-- `npm run build` - create a production ready build in `dist` folder
-- `npm run lint` - execute an eslint check on server files
+- `npm run dev` - run the api server in debug mode, the client HMR React server and watch for changes
+on tracker folder.
+- `npm run build` - create a production ready build for the application in  `client/dist` folder
+and build the tracker library and copy to the `public` folder
 - `npm test` - run all server tests
 - `npm run test:watch` - run all server tests in watch mode
 
 ### From Client Folder
 
 - `npm clean` - delete the dist folder
-- `npm run lint` - execute an eslint check in the client folder
 - `npm test` - run all client tests
 - `npm run test:watch` - run all client tests in watch mode
-- `npm run coverage` - generate code coverage report in the `coverage` folder
 
 
 ## List of Third-Party Libraries
 
-### Both
-- Eslint
+### All
 - Jest
 
 ### Server
@@ -53,10 +58,18 @@ by the server.
 - Dotenv
 - Nodemon
 - Supertest
+- Lodash
 
-### Client
+### Webapp (client folder)
 - React
 - React-router
+- Webpack 
+- Axios
+- Moment
+- React-syntax-highlighter
+- Semantic-UI
+
+### Tracker (tracker folder)
 - Webpack
-- Webpack Extensions
-- Enzyme
+- Universal-cookie
+- Axios
