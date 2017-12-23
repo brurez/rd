@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component match the snapshot 1`] = `
+<div>
+  <div
+    className="ui segment"
+  >
+    <h2>
+      <i
+        className="desktop icon"
+      />
+       Últimas 10 Visitas
+    </h2>
+    <Visits />
+  </div>
+  <div
+    className="ui segment"
+  >
+    <h2>
+      <i
+        className="users icon"
+      />
+       Lista de Contatos
+    </h2>
+    <ContactList />
+  </div>
+</div>
+`;

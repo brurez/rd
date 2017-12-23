@@ -42,7 +42,7 @@ class Visits extends Component {
             <td>{moment(visit.visitedAt).format('LLL')}</td>
             <td>{visit.url}</td>
             <td>{(visit._contact && visit._contact.email) || 'Anonimo'}</td>
-            <td/>
+            <td className="collapsing" />
           </tr>
         );
       });
