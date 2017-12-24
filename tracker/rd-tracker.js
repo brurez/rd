@@ -9,7 +9,7 @@ const rdTracker = function(configObj = {}) {
   if (instance) return instance;
   // nome do cookie padrao
   this.tag = configObj.tag ? configObj.tag : 'rd-tracker';
-  this.server = configObj.server ? configObj.server : 'http://localhost:5000';
+  this.server = configObj.server ? configObj.server : 'https://rdtracker.herokuapp.com';
   // id padrao do formulario
   this.formId = configObj.formId ? configObj.formId : 'rd-form';
   if (!cookies.get(this.tag)) {

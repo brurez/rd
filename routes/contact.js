@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Contact = mongoose.model('contacts');
 const Visit = mongoose.model('visits');
-const { apiPost, apiPut, apiGet } = require('./helpers');
+const { apiPost, apiGet } = require('./helpers');
 
 const routes = app => {
 
@@ -10,6 +10,9 @@ const routes = app => {
   app.get('/api/contacts/:id', (req, res) => {
     apiGet(req, Contact, req.params.id)
       .then(contacts => {
+
+        // anexa todas as visitas ao objeto do contato retornado
+
         Visit.find({_contact: req.params.id}).sort('-visitedAt').exec((err, visits) => {
           const contact = contacts.data[0].toObject();
           contact.visits = visits.map(item => item.toObject());
@@ -36,16 +39,6 @@ const routes = app => {
       .catch(err => res.status(500).send(err));
   });
 
-  // ATUALIZA UM
-  app.put('/api/contacts/:id', (req, res) => {
-    apiPut(req, Contact)
-      .then(result => {
-        res.send(result);
-      })
-      .catch(err => {
-        res.status(500).send(err);
-      });
-  });
 };
 
 module.exports = { routes };

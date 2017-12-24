@@ -11,11 +11,13 @@ tracker/yarn-error.log
 tracker/.DS_Store
 
 node_modules
+/public/tracker.js
 coverage
 npm-debug.log
 yarn-error.log
 .env
 .DS_Store
+package-lock.json
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template

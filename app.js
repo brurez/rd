@@ -3,7 +3,6 @@ const logger = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//const cors = require('cors');
 
 require('dotenv').config();
 
@@ -31,7 +30,6 @@ if (app.get('env') === 'test') {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cors());
 
 app.get('/api/test', (req, res) => {
   res.send('test ok');
