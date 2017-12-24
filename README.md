@@ -1,8 +1,31 @@
 # Code Challenge
 
+## It's Online!
+
+- Web App: [https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)
+- Example Website: [http://rd.toplayalong.com/](http://rd.toplayalong.com/)
+
+## How It Works
+A full explanation of how to use the tracker in any website can be found on:
+[https://rdtracker.herokuapp.com/howto](https://rdtracker.herokuapp.com/howto)
+
+Basically inserting the script from https://rdtracker.herokuapp.com/public/tracker.js 
+in your website makes the Web Application log all visits in this website.
+If the user is not registered all visits are shown as anonymous in the App.
+After the user registers with his name and email, all the visits he has made and
+the ones that he will do appear in the application with his associated email and name.
+
+## Local Development Setup
+For development on local machine, rename the two .env.development to .env
+on `tracker/` and `/` directories.
+
+To start dev server run `npm run dev` to start
+
 ## Deployment
 
-The project is configured to be deployed on Heroku.
+The project is configured to be deployed and built automatically on Heroku.
+Enviroment variables on the server must be configured as in the two .env.development files.
+
 The web application and the api server can be accessed by the following link:
 [https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)
 
@@ -21,6 +44,12 @@ will be tracked by the application;
 The main folder is also the API server that collects the data sent by
 the javascript library inserted on pages.
 
+## Tests
+
+- Server (`/__tests__`) - from `/` execute `npm test` 
+- Tracker (`tracker/__tests__`) - from `tracker/` execute `npm test`
+- Client Wep App (`client/src/__tests__`) - from `client/` execute `npm test`
+
 ## Available Commands
 
 ### From Main Folder
@@ -28,20 +57,20 @@ the javascript library inserted on pages.
 - `npm start` - run the server to serve the client folder content, meant to be used in production
 - `npm run dev` - run the api server in debug mode, the client HMR React server and watch for changes
 on tracker folder.
-- `npm run build` - create a production ready build for the application in  `client/dist` folder
+- `npm run heroku-postbuild` - create a production ready build for the application in  `client/dist` folder
 and build the tracker library and copy to the `public` folder
 - `npm test` - run server tests in watch mode
 
-### From Client Folder
+### From Client Folder (Web App)
 
-- `npm clean` - delete the dist folder
-- `npm test` - run all client tests
-- `npm run test:watch` - run all client tests in watch mode
+- `npm start` - start webpack-dev-server
+- `npm build` - build production files and copy to `client/build`
+- `npm test` - run all client tests in watch mode
 
 ### Database Factory Commands (from `factory folder)
 
-- `node populate` - generate records to populate the application database
-- `node drop` - drop all collections
+- `node populate exec` - generate records to populate the application database
+- `node drop exec` - drop all collections (can also be executed via POST /api/factory/drop)
 
 
 ## List of Third-Party Libraries
@@ -51,6 +80,11 @@ and build the tracker library and copy to the `public` folder
 
 ### Server
 - Express
+- Mongoose
+- Cors
+- Body-parser
+- Moment
+- Lodash
 - Dotenv
 - Nodemon
 - Supertest
@@ -64,6 +98,7 @@ and build the tracker library and copy to the `public` folder
 - Moment
 - React-syntax-highlighter
 - Semantic-UI
+- Enzyme
 
 ### Tracker (tracker folder)
 - Webpack
@@ -74,3 +109,4 @@ and build the tracker library and copy to the `public` folder
 
 - Continuous Integration
 - Lint server and tracker
+- Coverage

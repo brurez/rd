@@ -1,23 +1,22 @@
 import React from 'react';
-import { shallow, configure , render } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
 
-import ContactList from '../components/ContactList';
+import Visits from '../components/Visits';
 
 jest.mock('axios');
 
 configure({ adapter: new Adapter() });
 
-describe('ContactList Component', () => {
-/*  let wrapper;
+describe('Contact Component', () => {
+  let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<ContactList />);
+    wrapper = shallow(<Visits />);
   });
 
   test('if exist', () => {
-    //console.log(wrapper);
     expect(wrapper).toBeTruthy();
   });
 
@@ -25,17 +24,18 @@ describe('ContactList Component', () => {
     expect(wrapper.html()).toContain('Espere um segundo');
   });
 
-  //after update
+  //update
 
-  test('if names are displayed after update', () => {
+  test('if display data from api', () => {
     wrapper.update();
-    expect(wrapper.html()).toContain('Bruno de Rezende');
-    expect(wrapper.html()).toContain('João do Teste');
+    expect(wrapper.html()).toContain('rd.toplayalong.com/sobre.html');
+    expect(wrapper.html()).toContain('test.com');
   });
 
   test('if match the snapshot', () => {
     wrapper.update();
+    wrapper.update();
     expect(toJson(wrapper)).toMatchSnapshot();
-  });*/
+  });
 });
 

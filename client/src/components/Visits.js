@@ -19,7 +19,7 @@ class Visits extends Component {
     axios
       .get('/api/visits?sort=-visitedAt&limit=10')
       .then(res => {
-        const { data } = res.data;
+        const {  data } = res.data;
         this.setState({ data, isFetching: false, firstTime: false });
       })
       .catch(err => {

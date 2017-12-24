@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const Visit = mongoose.model('visits');
 const Contact = mongoose.model('contacts');
-const { apiGet } = require('./helpers');
+const { apiGet } = require('./_helpers');
 
 const routes = app => {
   // CARREGA UM
@@ -24,7 +25,8 @@ const routes = app => {
   });
 
   // INSERE UM
-  app.post('/api/visits', (req, res) => {
+  app.options('/api/visits', cors()); // hablilita CORS pre-flight
+  app.post('/api/visits', cors(), (req, res) => {
     visitInsert(req.body)
       .then(status => {
         res.send(status);
