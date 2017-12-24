@@ -20,7 +20,7 @@ const rdTracker = function(configObj = {}) {
       history: [],
     });
   }
-  debugger;
+
   instance = this;
 };
 
@@ -77,14 +77,14 @@ rdTracker.prototype.addPage = function() {
   cookies.set(this.tag, cookie);
 };
 
-
-/*  cookie.history contem a lista de páginas visitadas
-    ainda nao enviadas para o servidor.
-    Depois que envia para o servidor, essa lista eh apagada do cookie
+/*
+  cookie.history contem a lista de páginas visitadas
+  ainda nao enviadas para o servidor.
+  Depois que envia para o servidor, essa lista eh apagada do cookie
 */
 
 // limpa o historico de visitas do cookie
-rdTracker.prototype.cleanHistory = function () {
+rdTracker.prototype.cleanHistory = function() {
   const cookie = cookies.get(this.tag);
   cookie.history = [];
   cookies.set(this.tag, cookie);
@@ -93,24 +93,24 @@ rdTracker.prototype.cleanHistory = function () {
 // manda o array com historico de visitas (history) para o servidor e
 // limpa o historico do cookie
 rdTracker.prototype.sendAndCleanHistory = function() {
-  return new Promise( (resolve, reject ) => {
+  return new Promise((resolve, reject) => {
     const cookie = cookies.get(this.tag);
-    axios.post(this.server + '/api/visits', cookie).then(res => {
-
-      if (res.data === 'ok') {
-        // se a resposta for ok significa que o servidor já registrou as visitas
-        // entao pode apagar do cookie a lista de paginas visitadas
-        this.cleanHistory();
-      }
-      resolve(res.data);
-
-    }).catch( err => reject(err));
+    axios
+      .post(this.server + '/api/visits', cookie)
+      .then(res => {
+        if (res.data === 'ok') {
+          // se a resposta for ok significa que o servidor já registrou as visitas
+          // entao pode apagar do cookie a lista de paginas visitadas
+          this.cleanHistory();
+        }
+        resolve(res.data);
+      })
+      .catch(err => reject(err));
   });
-
 };
 
 // acao quando o usuario se registra com o formulario
-rdTracker.prototype.submit = function (e) {
+rdTracker.prototype.submit = function(e) {
   const name = e.target.name.value;
   const email = e.target.email.value;
   this.setUser(name, email);

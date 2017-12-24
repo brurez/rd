@@ -3,16 +3,14 @@ const logger = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+//const cors = require('cors');
 
 require('dotenv').config();
 
 require('./models/Contact');
 require('./models/Visit');
 
-//console.log('mongoURI', process.env.mongoURI);
-
 const app = express();
-
 
 // MongoDB Setup
 mongoose.Promise = global.Promise;
@@ -25,24 +23,30 @@ if (app.get('env') === 'test') {
     useMongoClient: true,
   });
 }
-// ==============
+
+// Middlewares
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(cors()); // enables cross origin
 
 app.get('/api/test', (req, res) => {
   res.send('test ok');
 });
 
+// static routes
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/website', express.static(path.join(__dirname, 'website')));
 
+// api routes
+
 require('./routes/contact').routes(app);
 require('./routes/visit').routes(app);
 
-//console.log('env', app.get('env'));
+//in development wepback-dev-server take over
 
 if (app.get('env') !== 'development') {
   app.use('/', express.static(path.join(__dirname, 'client/build')));
