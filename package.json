@@ -39,7 +39,6 @@
     "npm-run-all": "^4.1.2"
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^21.5.0",
     "faker": "^4.1.0",
     "nodemon": "^1.13.3",
     "supertest": "^3.0.0"

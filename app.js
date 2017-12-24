@@ -45,6 +45,7 @@ app.use('/website', express.static(path.join(__dirname, 'website')));
 
 require('./routes/contact').routes(app);
 require('./routes/visit').routes(app);
+require('./routes/factory').routes(app);
 
 //in development wepback-dev-server take over
 

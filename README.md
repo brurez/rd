@@ -40,8 +40,8 @@ and build the tracker library and copy to the `public` folder
 
 ### Database Factory Commands (from `factory folder)
 
-- `node populate` - generate records to populate the application database
-- `node drop` - drop all collections
+- `node populate exec` - generate records to populate the application database
+- `node drop exec` - drop all collections (can also be executed via POST /api/factory/drop)
 
 
 ## List of Third-Party Libraries
@@ -51,6 +51,11 @@ and build the tracker library and copy to the `public` folder
 
 ### Server
 - Express
+- Mongoose
+- Cors
+- Body-parser
+- Moment
+- Lodash
 - Dotenv
 - Nodemon
 - Supertest

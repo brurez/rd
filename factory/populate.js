@@ -12,7 +12,7 @@ mongoose.connect(process.env.mongoURI, {
   useMongoClient: true,
 });
 
-function it(num = 10) {
+function populate(num = 10) {
   faker.locale = 'pt_BR';
 
   let inserts = _.times(num, index => {
@@ -48,8 +48,9 @@ function it(num = 10) {
   });
 }
 
-/*module.exports = {
-  it
-};*/
+if(process.argv[2] === 'exec')
+  populate();
 
-it();
+module.exports = {
+  populate
+};

@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const Visit = mongoose.model('visits');
 const Contact = mongoose.model('contacts');
-const { apiGet } = require('./helpers');
+const { apiGet } = require('./_helpers');
 
 const routes = app => {
   // CARREGA UM
