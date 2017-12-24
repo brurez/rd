@@ -23,7 +23,8 @@ function it(num = 10) {
       uuid: faker.random.word(),
     };
     _.times(5, index => {
-      cookie.history.push({
+      cookie.history.push(
+        {
           url: 'teste.com',
           visitedAt: faker.date.recent(),
         },
@@ -34,7 +35,8 @@ function it(num = 10) {
         {
           url: 'teste.com/precos',
           visitedAt: faker.date.recent(),
-        })
+        },
+      );
     });
 
     return visitInsert(cookie);
@@ -46,10 +48,8 @@ function it(num = 10) {
   });
 }
 
-module.exports = {
+/*module.exports = {
   it
-};
+};*/
 
-require('make-runnable');
-
-//it();
+it();

@@ -4,25 +4,25 @@ const _ = require('lodash');
 const faker = require('faker');
 
 require('../models/Visit');
-require('../models/Contact')
-
+require('../models/Contact');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.mongoURI, {
   useMongoClient: true,
 });
 
-function it(){
+function it() {
   const { visits, contacts } = mongoose.connection.collections;
   visits.drop(() => {
     contacts.drop(() => {
-      done();
+      console.log( 'all collections dropped');
     });
   });
 }
 
+it();
+
+/*
 module.exports = {
   it
-};
-
-require('make-runnable');
+};*/

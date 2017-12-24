@@ -2,7 +2,7 @@ module.exports = {
   get: (url, body) => {
     if (url === '/api/contacts/123') {
       return new Promise((resolve, reject) => {
-        resolve( {
+        resolve({
           data: {
             _id: '123',
             name: 'Bruno de Rezende',
@@ -25,12 +25,40 @@ module.exports = {
                 url: 'localhost:5000/website/contato.html',
                 uuid: '249a583a-dbb9-e35a-39bb-edcc4a010f6e',
                 _contact: '5a3d2ca488a1460a7ac5e38f',
-              }
+              },
             ],
           },
         });
       });
-
+    } else if (url === '/api/contacts') {
+      return new Promise((resolve, reject) => {
+        resolve({
+          data: [
+            {
+              _id: '5a3d2ca488a1460a7ac5e38f',
+              name: 'Bruno de Rezende',
+              email: 'brurez@hotmail.com',
+              __v: 0,
+              createdAt: '2017-12-22T15:56:30.589Z',
+            },
+            {
+              _id: '5a3d3c1143238f0b4cb7d5b5',
+              name: 'João do Teste',
+              email: 'joao@teste.com',
+              __v: 0,
+              createdAt: '2017-12-22T17:08:13.359Z',
+            },
+            {
+              _id: '5a3d46204c396a0b8b9c593d',
+              name: 'Babi Reno',
+              email: 'babi@gmail.com',
+              __v: 0,
+              createdAt: '2017-12-22T17:24:10.541Z',
+            }
+          ],
+          count: 24
+        });
+      });
     }
-  }
+  },
 };

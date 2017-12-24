@@ -22,9 +22,9 @@
     "dev:client": "npm run start --prefix client",
     "dev:tracker": "npm run watch --prefix tracker",
     "dev": "npm-run-all --parallel dev:*",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    "populate": "node ./factory/populate.js it",
-    "drop": "node ./factory/drop.js it",
+    "postbuild:client": "npm install --prefix client && npm run build --prefix client",
+    "postbuild:tracker": "npm install --prefix tracker && npm run build --prefix tracker",
+    "heroku-postbuild": "npm-run-all postbuild:*",
     "test": "jest --watch"
   },
   "dependencies": {

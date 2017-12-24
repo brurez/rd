@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Contact Component match the snapshot 1`] = `
+exports[`Contact Component if match the snapshot 1`] = `
 <div>
   <h2>
     <i
@@ -25,7 +25,10 @@ exports[`Contact Component match the snapshot 1`] = `
           </label>
           <div
             className="Contact-field"
-          />
+            id="name-field"
+          >
+            Bruno de Rezende
+          </div>
         </div>
         <div
           className="field"
@@ -35,7 +38,10 @@ exports[`Contact Component match the snapshot 1`] = `
           </label>
           <div
             className="Contact-field"
-          />
+            id="email-field"
+          >
+            brurez@hotmail.com
+          </div>
         </div>
       </div>
     </div>
@@ -46,7 +52,43 @@ exports[`Contact Component match the snapshot 1`] = `
     <h3>
       Visitas
     </h3>
-    <Component />
+    <table
+      className="ui compact celled table"
+      id="visits"
+    >
+      <thead>
+        <tr>
+          <th>
+            Data da Visita
+          </th>
+          <th>
+            Endereço da Página
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="5a3d3bff43238f0b4cb7d5b4"
+        >
+          <td>
+            December 22, 2017 3:08 PM
+          </td>
+          <td>
+            localhost:5000/website/contato.html
+          </td>
+        </tr>
+        <tr
+          key="5a3d3ba93f68a50b45d6fda6"
+        >
+          <td>
+            December 22, 2017 3:06 PM
+          </td>
+          <td>
+            localhost:5000/website/contato.html
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 `;

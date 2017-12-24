@@ -15,7 +15,7 @@ class Contact extends Component {
     }, 6000);
   }
 
-  fetchApi(){
+  fetchApi() {
     axios
       .get(`/api/contacts/${this.props.match.params.id}`)
       .then(res => {
@@ -31,9 +31,7 @@ class Contact extends Component {
 
   renderVisits() {
     if (!this.state.isFetching) {
-      //debugger;
       const visits = this.state.data.visits.map(visit => {
-        //debugger;
         return (
           <tr key={visit._id}>
             <td>{moment(visit.visitedAt).format('LLL')}</td>
@@ -43,7 +41,7 @@ class Contact extends Component {
       });
 
       return (
-        <table className="ui compact celled table">
+        <table className="ui compact celled table" id="visits">
           <thead>
             <tr>
               <th>Data da Visita</th>
@@ -63,17 +61,23 @@ class Contact extends Component {
 
     return (
       <div>
-        <h2><i className="user icon" /> Detalhes do Contato</h2>
+        <h2>
+          <i className="user icon" /> Detalhes do Contato
+        </h2>
         <div className="ui vertical segment">
           <div className="ui form">
             <div className="two fields">
               <div className="field">
                 <label>Nome</label>
-                <div className="Contact-field">{name}</div>
+                <div className="Contact-field" id="name-field">
+                  {name}
+                </div>
               </div>
               <div className="field">
                 <label>Email</label>
-                <div className="Contact-field">{email}</div>
+                <div className="Contact-field" id="email-field">
+                  {email}
+                </div>
               </div>
             </div>
           </div>
