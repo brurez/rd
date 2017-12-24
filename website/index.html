@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <title>Fã Clube do Porquinho da Índia do Star Wars</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <link rel="stylesheet" href="starwars/css/starwars-glyphicons.css">
+
+    <style>
+        .swg {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-<div class="ui container" style="text-align: center">
-    <h1>Site do Cliente da RD</h1>
+<div class="ui container" style="text-align: center; padding-top: 10px">
+    <h1> Site do Cliente da RD </h1>
     <img src="porquinho.jpg" alt="porquinho">
     <h2>Você está sendo rastreado pela Resultados Digitais !</h2>
     <h3>Entre nas outras páginas com o aplicativo aberto para ver as novas visitas inseridas em tempo real</h3>
+    <div class="ui icon message" style="max-width: 600px;margin: 0 auto;">
+        <i class="swg swg-porg-7 swg-4x"></i>
+        <div class="content">
+            <div class="header">
+                Clique CONTATO para se cadastrar!
+            </div>
+            <p>Isso fará que as visitas não sejam mais anônimas.</p>
+        </div>
+    </div>
     <nav class="ui three huge item menu">
-        <a class="item" href="contato.html"><i class="pointing right icon"></i>CONTATO</a>
+        <a class="item" href="contato.html"><i class="pointing right icon"></i><strong>CONTATO</strong></a>
         <a class="item" href="preco.html">PREÇO</a>
         <a class="item" href="sobre.html">SOBRE</a>
-    </nav></div>
+    </nav>
+</div>
 
-    <script src="https://rdtracker.herokuapp.com/public/tracker.js"></script>
-    <script src="/public/tracker.js"></script>
-    <script>rdTracker.init()</script>
+<script src="https://rdtracker.herokuapp.com/public/tracker.js"></script>
+<script src="/public/tracker.js"></script>
+<script>rdTracker.init()</script>
 </body>
 </html>

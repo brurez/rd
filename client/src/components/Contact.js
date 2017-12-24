@@ -19,7 +19,6 @@ class Contact extends Component {
     axios
       .get(`/api/contacts/${this.props.match.params.id}`)
       .then(res => {
-        //debugger;
         this.setState({ data: res.data, isFetching: false });
       })
       .catch(err => console.log(err));

@@ -10,10 +10,10 @@ A full explanation of how to use the tracker in any website can be found on:
 [https://rdtracker.herokuapp.com/howto](https://rdtracker.herokuapp.com/howto)
 
 Basically inserting the script from https://rdtracker.herokuapp.com/public/tracker.js 
-in our website makes the Web Application to log all visits.
-If the user is nor registered all visits are shown as anonymous in the App.
+in your website makes the Web Application log all visits in this website.
+If the user is not registered all visits are shown as anonymous in the App.
 After the user registers with his name and email, all the visits he has made and
-the ones that he will do appear in the application with his associated with his email and name.
+the ones that he will do appear in the application with his associated email and name.
 
 ## Local Development Setup
 For development on local machine, rename the two .env.development to .env
@@ -43,6 +43,12 @@ will be tracked by the application;
 
 The main folder is also the API server that collects the data sent by
 the javascript library inserted on pages.
+
+## Tests
+
+- Server (`/__tests__`) - from `/` execute `npm test` 
+- Tracker (`tracker/__tests__`) - from `tracker/` execute `npm test`
+- Client Wep App (`client/src/__tests__`) - from `client/` execute `npm test`
 
 ## Available Commands
 
@@ -92,6 +98,7 @@ and build the tracker library and copy to the `public` folder
 - Moment
 - React-syntax-highlighter
 - Semantic-UI
+- Enzyme
 
 ### Tracker (tracker folder)
 - Webpack

@@ -1,7 +1,6 @@
-const rdTracker = require('../rd-tracker').default;
+const RdTracker = require('../rd-tracker').default;
 
 jest.mock('axios');
-//const Cookies = require('universal-cookie');
 
 describe('Rd Tracker Test', () => {
 
@@ -18,19 +17,17 @@ describe('Rd Tracker Test', () => {
   });
 
   test('if is singleton', () => {
-    const tracker1 = new rdTracker();
-    const tracker2 = new rdTracker();
+    const tracker1 = new RdTracker();
+    const tracker2 = new RdTracker();
     expect(tracker1).toBe(tracker2);
+    const tracker3 = new RdTracker({ forceNew: true });
+    expect(tracker3).not.toBe(tracker1);
   });
 
   test('if add page to history works', () => {
-    //const cookies = new Cookies();
-    const tracker = new rdTracker();
+    const tracker = new RdTracker({ forceNew: true });
     expect(tracker._getHistory()).toEqual([]);
-    //console.log('cookie', document.cookie);
     tracker.addPage();
-    //console.log('cookie', cookies.get('rd-tracker'));
-    //console.log(tracker._getHistory()[0].url);
     expect(tracker._getHistory()[0].url).toBe('teste.com/pagina');
 
     Object.defineProperty(location, "pathname", {
@@ -41,15 +38,25 @@ describe('Rd Tracker Test', () => {
     expect(tracker._getHistory()[1].url).toBe('teste.com/outra');
   });
 
-  test('if user is set correctly using setUser', () => {
-    const tracker = new rdTracker();
+  test('if user is set / get correctly using setUser and getUser', () => {
+    const tracker = new RdTracker({ forceNew: true });
     tracker.setUser('Bruno', 'brurez@hotmail.com');
     expect(tracker._getCookie().name).toBe('Bruno');
     expect(tracker._getCookie().email).toBe('brurez@hotmail.com');
+    expect(tracker.getUser().name).toBe('Bruno');
+    expect(tracker.getUser().email).toBe('brurez@hotmail.com');
+
+  });
+
+  test('if name and email getters are working', () => {
+    const tracker = new RdTracker({ forceNew: true });
+    tracker.setUser('Bruno', 'brurez@hotmail.com');
+    expect(tracker.name).toBe('Bruno');
+    expect(tracker.email).toBe('brurez@hotmail.com');
   });
 
   test('if history is cleaned by cleanHistory', () => {
-    const tracker = new rdTracker();
+    const tracker = new RdTracker({ forceNew: true });
     tracker.addPage();
     tracker.addPage();
     Object.defineProperty(location, "pathname", {
@@ -61,7 +68,7 @@ describe('Rd Tracker Test', () => {
   });
 
   test('if api connection through sendAndCleanHistory is working', done => {
-    const tracker = new rdTracker();
+    const tracker = new RdTracker({ forceNew: true });
     tracker.addPage();
     tracker.sendAndCleanHistory().then( res => {
       expect(res).toBe('ok');

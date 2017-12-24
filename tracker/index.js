@@ -37,7 +37,11 @@
 
 */
 
-import rdTracker from './rd-tracker';
+import RdTracker from './rd-tracker';
+
+/*import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+window.rdcookie = cookies.get('rd-tracker');*/
 
 // *** Interface pública do rastreador ***
 
@@ -45,14 +49,16 @@ import rdTracker from './rd-tracker';
 // obrigatorio ser executado na pagina para rastrear
 
 const init = function(config) {
-  const tracker = new rdTracker(config);
+  const tracker = new RdTracker(config);
 
   // se existir um formulario #rd-tracker setUser eh associado ao evento submit
-  if (document.getElementById(tracker.formId))
-    document
-      .getElementById(tracker.formId)
-      .addEventListener('submit', tracker.submit.bind(tracker));
-
+  if (document.getElementById(tracker.formId)) {
+    const form = document.getElementById(tracker.formId);
+    form.addEventListener('submit', tracker.submit.bind(tracker));
+    if(tracker.name && tracker.email) {
+      updateForm(tracker, form);
+    }
+  }
   // adiciona a pagina atual ao historico
   tracker.addPage();
 
@@ -63,9 +69,16 @@ const init = function(config) {
 // opcional para o usuario
 
 const setUser = function(name, email) {
-  const tracker = new rdTracker();
+  const tracker = new RdTracker();
   tracker.setUser(name, email);
+  updateForm(tracker);
 };
+
+function updateForm(tracker, form){
+  if(!form) form = document.getElementById(tracker.formId);
+  form.querySelector('input[name="name"]').value = tracker.name;
+  form.querySelector('input[name="email"]').value = tracker.email;
+}
 
 export {
   init,
