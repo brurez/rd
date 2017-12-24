@@ -1,5 +1,12 @@
 const webpack = require('webpack');
+require('dotenv').config();
 const path = require('path');
+
+dotEnv = new webpack.DefinePlugin({
+  "process.env": {
+    'serverURL': JSON.stringify(process.env.serverURL)
+  }
+});
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -18,4 +25,7 @@ module.exports = {
       { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
     ]
   },
+  plugins: [
+    dotEnv
+  ]
 };
