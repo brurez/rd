@@ -5,12 +5,19 @@ client/npm-debug.log
 client/yarn-error.log
 client/.DS_Store
 
+tracker/node_modules
+tracker/npm-debug.log
+tracker/yarn-error.log
+tracker/.DS_Store
+
 node_modules
+/public/tracker.js
 coverage
 npm-debug.log
 yarn-error.log
 .env
 .DS_Store
+package-lock.json
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template

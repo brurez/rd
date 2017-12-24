@@ -1,0 +1,22 @@
+.Footer-content {
+    display: flex;
+}
+
+.Footer-content div {
+    border: 1px solid #f2f3f4;
+    padding: 1em;
+}
+
+.Footer-content div:first-child {
+    flex: 1;
+}
+
+.Footer-content div:last-child {
+    flex: 2;
+}
+
+
+.Footer-copyright {
+    text-align: center;
+    /* margin-top: 1em; */
+}
