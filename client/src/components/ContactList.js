@@ -37,7 +37,7 @@ class ContactList extends Component {
     const { data, isFetching } = this.state;
 
     return data.map(contact => {
-      const { name, email, visits, createdAt } = contact;
+      const { name, email, createdAt } = contact;
       //debugger;
       return (
         <div className="card" key={contact._id}>

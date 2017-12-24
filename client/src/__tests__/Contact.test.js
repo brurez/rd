@@ -17,7 +17,6 @@ describe('Contact Component', () => {
   });
 
   test('if exist', () => {
-    //console.log(wrapper);
     expect(wrapper).toBeTruthy();
   });
 

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact Component if match the snapshot 1`] = `
+<table
+  className="ui striped compact table"
+>
+  <thead>
+    <tr>
+      <th>
+        Data da Visita
+      </th>
+      <th>
+        Endereço da Página
+      </th>
+      <th>
+        Contato
+      </th>
+      <th>
+        <i
+          className="spinner loading transparent icon"
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+            }
+          }
+        />
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      key="5a3fcc190e5e9300145a116e"
+    >
+      <td>
+        December 24, 2017 1:47 PM
+      </td>
+      <td>
+        rd.toplayalong.com/sobre.html
+      </td>
+      <td>
+        Anonimo
+      </td>
+      <td
+        className="collapsing"
+      />
+    </tr>
+    <tr
+      key="5a3fcc170e5e9300145a116d"
+    >
+      <td>
+        December 24, 2017 1:47 PM
+      </td>
+      <td>
+        test.com
+      </td>
+      <td>
+        Anonimo
+      </td>
+      <td
+        className="collapsing"
+      />
+    </tr>
+  </tbody>
+</table>
+`;
