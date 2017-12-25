@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const Contact = mongoose.model('contacts');
 const Visit = mongoose.model('visits');
@@ -31,7 +32,8 @@ const routes = app => {
   });
 
   // INSERE UM
-  app.post('/api/contacts', (req, res) => {
+  app.options('/api/contacts', cors()); // hablilita CORS pre-flight
+  app.post('/api/contacts', cors(),  (req, res) => {
     contactInsert(req.body)
       .then(contact => {
         res.send(contact);
@@ -46,11 +48,9 @@ function contactInsert(body){
     const { uuid, name, email } = body;
 
     if (email) {
-      // Usuário com cadastro ou com requisitos para cadastrar-se
-      // Insira nova visita relacionanda com contato
       Contact.findOne({ email }, (err, contact) => {
         if (!contact) {
-          // usuario não casdastrado nos contatos, adicionando contato e depois visita
+          // usuario não casdastrado nos contatos, adicionando contato
           const newContact = new Contact({
             name,
             email,
