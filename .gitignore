@@ -10,6 +10,8 @@ tracker/npm-debug.log
 tracker/yarn-error.log
 tracker/.DS_Store
 
+website/website.zip
+
 node_modules
 /public/tracker.js
 coverage

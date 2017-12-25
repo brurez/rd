@@ -6,7 +6,9 @@ const apiGet = (req, Model, id) => {
 
     const findObj = id ? { _id: id } : {};
 
+    //usado para paginacao
     const countP = Model.count(findObj).exec();
+
     const findP = Model.find(findObj)
       .sort(sort)
       .limit(Number(limit))
@@ -47,22 +49,15 @@ const apiPut = (req, Model) => {
     Model.updateOne(
       { _id },
       {
-        $set: flatten(body)
+        $set: flatten(body),
       },
       {},
       (err, writeOpResult) => {
         if (err) reject(err);
         resolve({ updated: !!writeOpResult.n });
-      }
-    )
-  })
+      },
+    );
+  });
 };
 
-function extraQuery(req) {
-  const reserved = ['sort', 'limit', 'skip'];
-  return _.omit(req.query, reserved);
-}
-
-
 module.exports = { apiGet, apiPost, apiPut };
-

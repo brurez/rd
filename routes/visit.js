@@ -9,7 +9,7 @@ const routes = app => {
   // CARREGA UM
   app.get('/api/visits/:id', (req, res) => {
     apiGet(req, Visit, req.params.id)
-      .then(services => res.send(services))
+      .then(visits => res.send(visits))
       .catch(err => res.status(500).send(err));
   });
 

@@ -19,7 +19,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <TopMenu/>
-          <main className="App-content ui container padded segment">
+          <main className="App-content ui container segment">
             <Route exact path="/" component={Home} />
             <Route path="/contact/:id" component={Contact}/>
             <Route path="/howto" component={HowTo} />

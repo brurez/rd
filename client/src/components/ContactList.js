@@ -68,7 +68,7 @@ class ContactList extends Component {
     const { data, isFetching } = this.state;
 
     if (!isFetching && data.length) {
-      return <div className="ui two cards">{this.renderContacts()}</div>;
+      return <div className="ui two stackable cards">{this.renderContacts()}</div>;
     } else if (isFetching) {
       return <LoadingMsg />;
     } else {
