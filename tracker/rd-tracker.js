@@ -14,7 +14,7 @@ const RdTracker = function(configObj = {}) {
   // id padrao do formulario
   this.formId = configObj.formId ? configObj.formId : 'rd-form';
   if (!cookies.get(this.tag)) {
-    cookies.set(this.tag, {
+    this._setCookie({
       uuid: guid(),
       name: configObj.name,
       email: configObj.email,
@@ -38,7 +38,6 @@ Object.defineProperty(RdTracker.prototype, 'email', {
   },
 });
 
-// método privado
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 function guid() {
   function s4() {
@@ -61,9 +60,10 @@ function guid() {
     s4()
   );
 }
+
 // ====================
 
-// métodos usados para teste
+// métodos usados internamente e para teste
 
 RdTracker.prototype._getHistory = function() {
   return cookies.get(this.tag).history;
@@ -73,13 +73,29 @@ RdTracker.prototype._getCookie = function() {
   return cookies.get(this.tag);
 };
 
+RdTracker.prototype._setCookie = function(value) {
+  cookies.set(this.tag, value, {
+    expires: expirationDate(),
+  });
+
+  function expirationDate() {
+    const now = new Date();
+    //debugger;
+    const time = now.getTime();
+    const expireTime = time + 1000 * 60 * 60 * 24 * 365;
+    now.setTime(expireTime);
+    //console.log(now.toUTCString());
+    return now;
+  }
+};
+
 // ====================
 
 RdTracker.prototype.setUser = function(name, email) {
   const cookie = cookies.get(this.tag);
   cookie.name = name;
   cookie.email = email;
-  cookies.set(this.tag, cookie);
+  this._setCookie(cookie);
 };
 
 RdTracker.prototype.getUser = function() {
@@ -95,7 +111,7 @@ RdTracker.prototype.addPage = function() {
     url: window.location.host + window.location.pathname,
   });
 
-  cookies.set(this.tag, cookie);
+  this._setCookie(cookie);
 };
 
 /*
@@ -108,7 +124,7 @@ RdTracker.prototype.addPage = function() {
 RdTracker.prototype.cleanHistory = function() {
   const cookie = cookies.get(this.tag);
   cookie.history = [];
-  cookies.set(this.tag, cookie);
+  this._setCookie(cookie);
 };
 
 // manda o array com historico de visitas (history) para o servidor e
@@ -132,9 +148,12 @@ RdTracker.prototype.sendAndCleanHistory = function() {
 
 // acao quando o usuario se registra com o formulario
 RdTracker.prototype.submit = function(e) {
+  e.preventDefault();
   const name = e.target.name.value;
   const email = e.target.email.value;
   this.setUser(name, email);
 };
+
+Object.freeze(RdTracker);
 
 export default RdTracker;

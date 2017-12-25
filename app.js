@@ -3,7 +3,6 @@ const logger = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//const cors = require('cors');
 
 require('dotenv').config();
 
@@ -29,11 +28,6 @@ if (app.get('env') === 'test') {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cors()); // enables cross origin
-
-app.get('/api/test', (req, res) => {
-  res.send('test ok');
-});
 
 // static routes
 
@@ -41,21 +35,22 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/website', express.static(path.join(__dirname, 'website')));
 
+//in development wepback-dev-server take over
+
+if (app.get('env') !== 'development')
+  app.use('/', express.static(path.join(__dirname, 'client/build')));
+
 // api routes
 
 require('./routes/contact').routes(app);
 require('./routes/visit').routes(app);
 require('./routes/factory').routes(app);
 
-//in development wepback-dev-server take over
+// if not found defaults to react app
 
-if (app.get('env') !== 'development') {
-  app.use('/', express.static(path.join(__dirname, 'client/build')));
-
-  // if not found defaults to react app
+if (app.get('env') !== 'development')
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
-}
 
 module.exports = app;
