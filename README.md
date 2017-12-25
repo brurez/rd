@@ -10,7 +10,10 @@ A full explanation of how to use the tracker in any website can be found on:
 [https://rdtracker.herokuapp.com/howto](https://rdtracker.herokuapp.com/howto)
 
 Basically inserting the script from https://rdtracker.herokuapp.com/public/tracker.js 
-in your website makes the Web Application log all visits in this website.
+in your website makes the Web Application log all visits.
+Every time page loads the script push to a history in the cookie the
+current url and tries to make a POST request to the server to send this history.
+If it is succeed the history is flushed from the cookie.
 If the user is not registered all visits are shown as anonymous in the App.
 After the user registers with his name and email, all the visits he has made and
 the ones that he will do appear in the application with his associated email and name.
