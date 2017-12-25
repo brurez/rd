@@ -5,7 +5,7 @@ const cookies = new Cookies(); //private
 
 let instance; //força singleton
 
-const RdTracker = function(configObj = {}) {
+const RdTracker = function (configObj = {}) {
   // se configObj: { forceNew: true } eh retornado novo objeto e instance eh atulizado
   if (instance && !configObj.forceNew) return instance;
   // nome do cookie padrao
@@ -28,12 +28,12 @@ const RdTracker = function(configObj = {}) {
 // Pega informacoes do cookie como se fossem suas propriedades
 
 Object.defineProperty(RdTracker.prototype, 'name', {
-  get: function() {
+  get: function () {
     return this.getUser().name;
   },
 });
 Object.defineProperty(RdTracker.prototype, 'email', {
-  get: function() {
+  get: function () {
     return this.getUser().email;
   },
 });
@@ -45,6 +45,7 @@ function guid() {
       .toString(16)
       .substring(1);
   }
+
   return (
     s4() +
     s4() +
@@ -65,15 +66,15 @@ function guid() {
 
 // métodos usados internamente e para teste
 
-RdTracker.prototype._getHistory = function() {
+RdTracker.prototype._getHistory = function () {
   return cookies.get(this.tag).history;
 };
 
-RdTracker.prototype._getCookie = function() {
+RdTracker.prototype._getCookie = function () {
   return cookies.get(this.tag);
 };
 
-RdTracker.prototype._setCookie = function(value) {
+RdTracker.prototype._setCookie = function (value) {
   cookies.set(this.tag, value, {
     expires: expirationDate(),
   });
@@ -91,20 +92,23 @@ RdTracker.prototype._setCookie = function(value) {
 
 // ====================
 
-RdTracker.prototype.setUser = function(name, email) {
+RdTracker.prototype.setUser = function (name, email) {
   const cookie = cookies.get(this.tag);
   cookie.name = name;
   cookie.email = email;
   this._setCookie(cookie);
+
+  axios.post(this.server + '/api/contacts', cookie).then(res => console.log(res));
+
 };
 
-RdTracker.prototype.getUser = function() {
-  const { name, email } = cookies.get(this.tag);
-  return { name, email };
+RdTracker.prototype.getUser = function () {
+  const {name, email} = cookies.get(this.tag);
+  return {name, email};
 };
 
 // adiciona a pagina atual ao historico de visitas do cookie
-RdTracker.prototype.addPage = function() {
+RdTracker.prototype.addPage = function () {
   const cookie = cookies.get(this.tag);
   cookie.history.push({
     visitedAt: new Date(),
@@ -121,7 +125,7 @@ RdTracker.prototype.addPage = function() {
 */
 
 // limpa o historico de visitas do cookie
-RdTracker.prototype.cleanHistory = function() {
+RdTracker.prototype.cleanHistory = function () {
   const cookie = cookies.get(this.tag);
   cookie.history = [];
   this._setCookie(cookie);
@@ -129,7 +133,7 @@ RdTracker.prototype.cleanHistory = function() {
 
 // manda o array com historico de visitas (history) para o servidor e
 // limpa o historico do cookie
-RdTracker.prototype.sendAndCleanHistory = function() {
+RdTracker.prototype.sendAndCleanHistory = function () {
   return new Promise((resolve, reject) => {
     const cookie = cookies.get(this.tag);
     axios
@@ -147,7 +151,7 @@ RdTracker.prototype.sendAndCleanHistory = function() {
 };
 
 // acao quando o usuario se registra com o formulario
-RdTracker.prototype.submit = function(e) {
+RdTracker.prototype.submit = function (e) {
   e.preventDefault();
   const name = e.target.name.value;
   const email = e.target.email.value;

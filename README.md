@@ -1,5 +1,7 @@
 # Code Challenge
 
+#### Finished at 25/12/2017 (13:35)
+
 ## It's Online!
 
 - Web App: [https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)

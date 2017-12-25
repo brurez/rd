@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const Contact = mongoose.model('contacts');
 const Visit = mongoose.model('visits');
-const { apiPost, apiGet } = require('./_helpers');
+const { apiGet } = require('./_helpers');
 
 const routes = app => {
 
@@ -31,8 +32,9 @@ const routes = app => {
   });
 
   // INSERE UM
-  app.post('/api/contacts', (req, res) => {
-    apiPost(req, Contact)
+  app.options('/api/contacts', cors()); // hablilita CORS pre-flight
+  app.post('/api/contacts', cors(),  (req, res) => {
+    contactInsert(req.body)
       .then(contact => {
         res.send(contact);
       })
@@ -40,5 +42,36 @@ const routes = app => {
   });
 
 };
+
+function contactInsert(body){
+  return new Promise((resolve, reject) => {
+    const { uuid, name, email } = body;
+
+    if (email) {
+      Contact.findOne({ email }, (err, contact) => {
+        if (!contact) {
+          // usuario não casdastrado nos contatos, adicionando contato
+          const newContact = new Contact({
+            name,
+            email,
+          });
+          newContact.save((err, contact) => {
+
+            // Procura todas as visitas anonimas com o mesmo uuid e adiciona contato
+
+            Visit.updateMany(
+              {uuid, _contact: {$exists: false}},
+              {$set: {_contact: contact.id}},
+              (err, res) => {
+                if(err) reject(err);
+                resolve(res);
+              },
+            );
+          });
+        }
+      });
+    }
+  });
+}
 
 module.exports = { routes };

@@ -28,6 +28,10 @@ describe('Test visit insertion via API', () => {
       uuid: 'a6208efa-40c0-71ff-e817-250153112495',
     };
 
+    Visit.find({}).exec((err, res) => {
+      expect(res.length).toBe(0);
+    });
+
     request(app)
       .post('/api/visits')
       .send(cookie)
