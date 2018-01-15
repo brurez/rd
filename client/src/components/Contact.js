@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import socket from '../socket';
 
 import './Contact.css';
 import LoadingMsg from './LoadingMsg';
 
 class Contact extends Component {
-  state = { data: {}, isFetching: true };
+  constructor(props){
+    super(props);
+    this.state = { data: {}, isFetching: true };
+    this.fetchApi = this.fetchApi.bind(this)
+  }
 
   componentDidMount() {
     this.fetchApi();
-    this.interval = setInterval(() => {
-      this.fetchApi();
-    }, 6000);
+    socket.emit('join', 'contact-' + this.props.match.params.id);
+    socket.on('new-contact-visit', this.fetchApi);
   }
 
   fetchApi() {
@@ -24,8 +28,9 @@ class Contact extends Component {
       .catch(err => console.log(err));
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentWillUnmount(){
+    socket.emit('leave', 'contact-' + this.props.match.params.id);
+    socket.off('new-contact-visit', this.fetchApi);
   }
 
   renderVisits() {

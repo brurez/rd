@@ -4,23 +4,25 @@ import moment from 'moment';
 
 import LoadingMsg from './LoadingMsg';
 import axios from 'axios/index';
+import socket from '../socket';
 
 class ContactList extends Component {
-  state = { data: [], isFetching: true };
+  constructor(props){
+    super(props);
+    this.state = { data: [], isFetching: true };
+    this.fetchApi = this.fetchApi.bind(this)
+  }
 
   componentDidMount() {
     this.fetchApi();
-    this.interval = setInterval(() => {
-      this.fetchApi();
-    }, 6000);
+    socket.on('new-contact', this.fetchApi);
   }
 
   fetchApi() {
     axios
       .get('/api/contacts')
       .then(res => {
-        //debugger;
-        const { data, count } = res.data;
+        const { data } = res.data;
         this.setState({ data, isFetching: false });
       })
       .catch(err => {
@@ -29,16 +31,16 @@ class ContactList extends Component {
       });
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentWillUnmount(){
+    socket.off('new-contact', this.fetchApi);
   }
 
   renderContacts() {
-    const { data, isFetching } = this.state;
+    const { data } = this.state;
 
     return data.map(contact => {
       const { name, email, createdAt } = contact;
-      //debugger;
+
       return (
         <div className="card" key={contact._id}>
           <div className="content">

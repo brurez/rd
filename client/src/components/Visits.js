@@ -3,15 +3,21 @@ import axios from 'axios';
 import moment from 'moment';
 
 import LoadingMsg from './LoadingMsg';
+import socket from '../socket';
 
 class Visits extends Component {
-  state = { data: [], isFetching: true, firstTime: true };
+
+  constructor(props){
+    super(props);
+    this.state = { data: [], isFetching: true, firstTime: true };
+
+    this.fetchApi = this.fetchApi.bind(this);
+  }
+
 
   componentDidMount() {
     this.fetchApi();
-    this.interval = setInterval(() => {
-      this.fetchApi();
-    }, 6000);
+    socket.on('new-visit', this.fetchApi);
   }
 
   fetchApi() {
@@ -28,8 +34,8 @@ class Visits extends Component {
       });
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentWillUnmount(){
+    socket.off('new-visit', this.fetchApi);
   }
 
   render() {

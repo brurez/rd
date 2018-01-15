@@ -28,8 +28,10 @@ const routes = app => {
   app.options('/api/visits', cors()); // hablilita CORS pre-flight
   app.post('/api/visits', cors(), (req, res) => {
     visitInsert(req.body)
-      .then(status => {
-        res.send(status);
+      .then(contactId => {
+        res.io.emit('new-visit');
+        res.io.to('contact-' + contactId).emit('new-contact-visit');
+        res.send('ok');
       })
       .catch(err => res.status(500).send(err));
   });
@@ -60,7 +62,7 @@ function visitInsert(body) {
               if (err) {
                 reject('visit insert with new contact failed', err);
               }
-              resolve('ok');
+              resolve(contact._id);
             });
 
             // Procura todas as visitas anonimas com o mesmo uuid e adiciona contato
@@ -85,7 +87,7 @@ function visitInsert(body) {
             if (err) {
               reject('visit insert with new contact failed', err);
             }
-            resolve('ok');
+            resolve(contact.id);
           });
         }
       });
