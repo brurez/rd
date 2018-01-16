@@ -36,7 +36,7 @@ const routes = app => {
   app.post('/api/contacts', cors(),  (req, res) => {
     contactInsert(req.body)
       .then(contact => {
-        res.io.emit('new-contact');
+        res.wss.broadcast('new-contact');
         res.send(contact);
       })
       .catch(err => res.status(500).send(err));

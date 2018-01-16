@@ -4,6 +4,7 @@ const cors = require('cors');
 const Visit = mongoose.model('visits');
 const Contact = mongoose.model('contacts');
 const { apiGet } = require('./_helpers');
+const Socket = require('../ServerSocket');
 
 const routes = app => {
   // CARREGA UM
@@ -29,8 +30,12 @@ const routes = app => {
   app.post('/api/visits', cors(), (req, res) => {
     visitInsert(req.body)
       .then(contactId => {
-        res.io.emit('new-visit');
-        res.io.to('contact-' + contactId).emit('new-contact-visit');
+        res.wss.broadcast('new-visit');
+        res.wss.broadcast({
+          action: Socket.a.NOTIFICATION,
+          payload: 'new-contact-visit',
+          room: 'contact-' + contactId
+        });
         res.send('ok');
       })
       .catch(err => res.status(500).send(err));

@@ -6,19 +6,23 @@ import LoadingMsg from './LoadingMsg';
 import socket from '../socket';
 
 class Visits extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = { data: [], isFetching: true, firstTime: true };
 
     this.fetchApi = this.fetchApi.bind(this);
+    this.onMessage = this.onMessage.bind(this);
   }
 
   componentDidMount() {
     this.fetchApi();
-    socket.onmessage = event => {
-      if(event.data === 'new-visit') this.fetchApi();
-    };
+    socket.addEventListener('message', this.onMessage);
+  }
+
+  onMessage(event) {
+    const msg = JSON.parse(event.data);
+    if (msg.action === 'notification' && msg.payload === 'new-visit')
+      this.fetchApi();
   }
 
   fetchApi() {
@@ -26,7 +30,7 @@ class Visits extends Component {
     axios
       .get('/api/visits?sort=-visitedAt&limit=10')
       .then(res => {
-        const {  data } = res.data;
+        const { data } = res.data;
         this.setState({ data, isFetching: false, firstTime: false });
       })
       .catch(err => {
@@ -35,8 +39,8 @@ class Visits extends Component {
       });
   }
 
-  componentWillUnmount(){
-    socket.onmessage = null;
+  componentWillUnmount() {
+    socket.removeEventListener('message', this.onMessage);
   }
 
   render() {
@@ -64,14 +68,17 @@ class Visits extends Component {
               <th>Endereço da Página</th>
               <th>Contato</th>
               <th>
-                <i className="spinner loading transparent icon" style={{color: iconColor}}/>
+                <i
+                  className="spinner loading transparent icon"
+                  style={{ color: iconColor }}
+                />
               </th>
             </tr>
           </thead>
           <tbody>{visits}</tbody>
         </table>
       );
-    } else if ( firstTime ) {
+    } else if (firstTime) {
       return <LoadingMsg />;
     } else {
       return (

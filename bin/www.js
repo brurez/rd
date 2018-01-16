@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../app').app;
-const server = require('../app').server;
+const { app, server }  = require('../app');
 
 /**
  * Get port from environment and store in Express.

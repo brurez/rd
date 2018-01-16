@@ -10,16 +10,26 @@ class Contact extends Component {
   constructor(props){
     super(props);
     this.state = { data: {}, isFetching: true };
-    this.fetchApi = this.fetchApi.bind(this)
+    this.fetchApi = this.fetchApi.bind(this);
+    this.onMessage = this.onMessage.bind(this);
   }
 
   componentDidMount() {
     this.fetchApi();
-    socket.onmessage = event => {
-      if(event.data === 'new-contact-visit') this.fetchApi();
-    };
-    //getSocket().send('join', 'contact-' + this.props.match.params.id);
-    //getSocket().addEventListener('new-contact-visit', this.fetchApi);
+    socket.addEventListener('open', e => {
+      socket.send(JSON.stringify({
+        action: 'join',
+        payload: 'contact-' + this.props.match.params.id
+      }));
+    });
+
+    socket.addEventListener('message', this.onMessage);
+  }
+
+  onMessage(event) {
+    const msg = JSON.parse(event.data);
+    if (msg.action === 'notification' && msg.payload === 'new-contact-visit')
+      this.fetchApi();
   }
 
   fetchApi() {
@@ -32,8 +42,11 @@ class Contact extends Component {
   }
 
   componentWillUnmount(){
-    //getSocket().send('leave', 'contact-' + this.props.match.params.id);
-    //getSocket().removeEventListener('new-contact-visit', this.fetchApi);
+    socket.send(JSON.stringify({
+      action: 'leave',
+      payload: 'contact-' + this.props.match.params.id
+    }));
+    socket.removeEventListener('message', this.onMessage);
   }
 
   renderVisits() {

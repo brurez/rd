@@ -10,14 +10,19 @@ class ContactList extends Component {
   constructor(props){
     super(props);
     this.state = { data: [], isFetching: true };
-    this.fetchApi = this.fetchApi.bind(this)
+    this.fetchApi = this.fetchApi.bind(this);
+    this.onMessage = this.onMessage.bind(this);
   }
 
   componentDidMount() {
     this.fetchApi();
-    socket.onmessage = event => {
-      if(event.data === 'new-contact') this.fetchApi();
-    };
+    socket.addEventListener('message', this.onMessage);
+  }
+
+  onMessage(event) {
+    const msg = JSON.parse(event.data);
+    if (msg.action === 'notification' && msg.payload === 'new-contact')
+      this.fetchApi();
   }
 
   fetchApi() {
@@ -34,7 +39,7 @@ class ContactList extends Component {
   }
 
   componentWillUnmount(){
-    socket.onmessage = null;
+    //socket.onmessage = null;
   }
 
   renderContacts() {

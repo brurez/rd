@@ -3,15 +3,15 @@ const logger = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const http = require('http');
+const Socket = require('./ServerSocket');
 
 require('dotenv').config();
 
 const app = express();
-const server = http.createServer(app);
-const io = require('socket.io')(server);
-if (app.get('env') !== 'development')
-  io.origins("http://localhost:* http://127.0.0.1:*");
+const socket = new Socket(app);
+
+/*if (app.get('env') !== 'development')
+  io.origins("http://localhost:* http://127.0.0.1:*");*/
 
 // MongoDB Setup
 require('./models/Contact');
@@ -33,10 +33,7 @@ if (app.get('env') === 'test') {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(function(req, res, next){
-  res.io = io;
-  next();
-});
+app.use(socket.middleware());
 
 // static routes
 
@@ -55,10 +52,6 @@ require('./routes/contact').routes(app);
 require('./routes/visit').routes(app);
 require('./routes/factory').routes(app);
 
-//socket connection
-
-require('./socket')(io);
-
 // if not found defaults to react app
 
 if (app.get('env') !== 'development')
@@ -67,4 +60,4 @@ if (app.get('env') !== 'development')
   });
 
 module.exports.app = app;
-module.exports.server = server;
+module.exports.server = socket.server;
