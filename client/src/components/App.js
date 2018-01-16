@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import 'moment/locale/pt-br';
 
-
 import TopMenu from './TopMenu';
 import Home from './Home';
 import Footer from './Footer';

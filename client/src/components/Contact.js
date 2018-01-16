@@ -15,8 +15,11 @@ class Contact extends Component {
 
   componentDidMount() {
     this.fetchApi();
-    socket.emit('join', 'contact-' + this.props.match.params.id);
-    socket.on('new-contact-visit', this.fetchApi);
+    socket.onmessage = event => {
+      if(event.data === 'new-contact-visit') this.fetchApi();
+    };
+    //getSocket().send('join', 'contact-' + this.props.match.params.id);
+    //getSocket().addEventListener('new-contact-visit', this.fetchApi);
   }
 
   fetchApi() {
@@ -29,8 +32,8 @@ class Contact extends Component {
   }
 
   componentWillUnmount(){
-    socket.emit('leave', 'contact-' + this.props.match.params.id);
-    socket.off('new-contact-visit', this.fetchApi);
+    //getSocket().send('leave', 'contact-' + this.props.match.params.id);
+    //getSocket().removeEventListener('new-contact-visit', this.fetchApi);
   }
 
   renderVisits() {

@@ -15,7 +15,9 @@ class ContactList extends Component {
 
   componentDidMount() {
     this.fetchApi();
-    socket.on('new-contact', this.fetchApi);
+    socket.onmessage = event => {
+      if(event.data === 'new-contact') this.fetchApi();
+    };
   }
 
   fetchApi() {
@@ -32,7 +34,7 @@ class ContactList extends Component {
   }
 
   componentWillUnmount(){
-    socket.off('new-contact', this.fetchApi);
+    socket.onmessage = null;
   }
 
   renderContacts() {

@@ -14,10 +14,11 @@ class Visits extends Component {
     this.fetchApi = this.fetchApi.bind(this);
   }
 
-
   componentDidMount() {
     this.fetchApi();
-    socket.on('new-visit', this.fetchApi);
+    socket.onmessage = event => {
+      if(event.data === 'new-visit') this.fetchApi();
+    };
   }
 
   fetchApi() {
@@ -35,7 +36,7 @@ class Visits extends Component {
   }
 
   componentWillUnmount(){
-    socket.off('new-visit', this.fetchApi);
+    socket.onmessage = null;
   }
 
   render() {
