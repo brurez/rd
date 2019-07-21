@@ -1,11 +1,9 @@
-# Code Challenge
-
-#### Finished at 25/12/2017 (13:35)
+# Page visits tracking and sign up
 
 ## It's Online!
 
-- Web App: [https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)
-- Example Website: [http://rd.toplayalong.com/](http://rd.toplayalong.com/)
+- Web app dashboard: [https://rdtracker.herokuapp.com/](https://rdtracker.herokuapp.com/)
+- Example tracked website: [http://rd.toplayalong.com/](http://rd.toplayalong.com/)
 
 ## How It Works
 A full explanation of how to use the tracker in any website can be found on:
